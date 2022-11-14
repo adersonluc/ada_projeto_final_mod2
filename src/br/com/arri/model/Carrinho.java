@@ -7,6 +7,6 @@ public interface Carrinho {
     void removerProduto(Produto produto);
     void alterarQuantidade(Integer quantidade, Produto produto);
     void calcularFrete();
-    void calculaTaxa(Produto produto, Categoria categoria);
+    void calculaTaxa();
 
 }

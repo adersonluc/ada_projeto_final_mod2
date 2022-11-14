@@ -5,6 +5,7 @@ import br.com.arri.dao.ProdutoDao;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -55,14 +56,20 @@ public class CarrinhoPessoaFisica implements Carrinho{
 
     @Override
     public void calcularFrete() {
-        pedidos.stream()
+        Optional<BigDecimal> valorTotalCarrinho = pedidos.stream()
                 .filter(pedido -> ProdutoDao.buscarProdutoById(pedido.getIdProduto()).getFrete() == true)
-                .collect(Collectors.toList());
+                .map(pedido -> pedido.getPrecoTotal()).collect(Collectors.toList())
+                .stream().reduce((numeroAnterior, numeroAtual) -> numeroAnterior.add(numeroAtual));
+        this.frete = valorTotalCarrinho.get().multiply(new BigDecimal("0.005"));
     }
 
     @Override
-    public void calculaTaxa(Produto produto, Categoria categoria) {
-
+    public void calculaTaxa() {
+        this.taxas = pedidos.stream()
+                .map(pedido -> ProdutoDao.buscarProdutoById(pedido.getIdProduto()).getCategoria().valorTaxa().multiply(pedido.getPrecoTotal()))
+                .collect(Collectors.toList())
+                .stream().reduce(new BigDecimal("0.00"), (valorAnterior, valorAtual) -> valorAnterior.add(valorAtual));
+        System.out.println(this.taxas);
     }
 
     @Override
