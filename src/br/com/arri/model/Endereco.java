@@ -10,6 +10,16 @@ public class Endereco {
     private String cidade;
     private String uf;
 
+    public Endereco(String logradouro, String complemento, Integer numero, String bairro, String cep, String cidade, String uf) {
+        this.logradouro = logradouro;
+        this.complemento = complemento;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.uf = uf;
+    }
+
     public String getLogradouro() {
         return logradouro;
     }

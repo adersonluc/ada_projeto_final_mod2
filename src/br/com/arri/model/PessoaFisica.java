@@ -9,6 +9,14 @@ public class PessoaFisica extends Pessoa{
     private LocalDateTime dtNascimento;
     private String cpf;
 
+    public PessoaFisica(Integer id, String nome, String email, String telefone, Endereco endereco, String nomeSocial, String sexo, LocalDateTime dtNascimento, String cpf) {
+        super(id, nome, email, telefone, endereco);
+        this.nomeSocial = nomeSocial;
+        this.sexo = sexo;
+        this.dtNascimento = dtNascimento;
+        this.cpf = cpf;
+    }
+
     public String getNomeSocial() {
         return nomeSocial;
     }

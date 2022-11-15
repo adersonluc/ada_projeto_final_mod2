@@ -8,6 +8,14 @@ public class Pessoa {
     private String telefone;
     private Endereco endereco;
 
+    public Pessoa(Integer id, String nome, String email, String telefone, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.endereco = endereco;
+    }
+
     public Integer getId() {
         return id;
     }

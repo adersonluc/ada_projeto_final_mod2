@@ -1,27 +1,26 @@
 package br.com.arri;
 
-import br.com.arri.basedados.BaseDadosProduto;
+import br.com.arri.basedados.BaseDados;
 import br.com.arri.dao.ProdutoDao;
 import br.com.arri.model.*;
-
-import java.math.BigDecimal;
 
 public class Main {
 
     public static void main(String[] args) {
         // Carregar os produtos
-        BaseDadosProduto produtos = new BaseDadosProduto();
-        produtos.fillDataBaseProdutos();
+        BaseDados.fillDataBaseProdutos();
 
         // Carregar Pessoas físicas e Jurídicas
+        BaseDados.fillDataBasePessoaFisica();
 
         // Cria o carrinho
-//        Carrinho carrinho = new CarrinhoPessoaFisica();
-//        carrinho.alterarQuantidade(5, ps5);
-        // Compra para pessoa Física
-        // Compra para pessoa Jurídica
-
         CarrinhoPessoaFisica cpf = new CarrinhoPessoaFisica();
+//        CarrinhoPessoaFisica cpj = new CarrinhoPessoaJuridica();
+
+        // Compra para pessoa Física
+
+
+        // Compra para pessoa Jurídica
 
         cpf.adicionarProduto(ProdutoDao.buscarProdutoById(1));
         cpf.adicionarProduto(ProdutoDao.buscarProdutoById(1));

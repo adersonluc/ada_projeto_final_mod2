@@ -5,6 +5,12 @@ public class PessoaJuridica extends Pessoa{
     private String nomeFantasia;
     private String cnpj;
 
+    public PessoaJuridica(Integer id, String nome, String email, String telefone, Endereco endereco, String nomeFantasia, String cnpj) {
+        super(id, nome, email, telefone, endereco);
+        this.nomeFantasia = nomeFantasia;
+        this.cnpj = cnpj;
+    }
+
     public String getNomeFantasia() {
         return nomeFantasia;
     }
