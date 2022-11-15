@@ -5,11 +5,11 @@ import br.com.arri.model.Produto;
 
 import java.util.Map;
 
-public class ProdutoDao {
+public class ProdutoDao implements BaseDao<Produto>{
 
-    public static Produto buscarProdutoById(Integer idProduto) {
+    @Override
+    public Produto buscarById(Integer id) {
         Map<Integer, Produto> dados = BaseDados.getProdutos();
-        return dados.get(idProduto);
+        return dados.get(id);
     }
-
 }

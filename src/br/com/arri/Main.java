@@ -4,6 +4,9 @@ import br.com.arri.basedados.BaseDados;
 import br.com.arri.dao.ProdutoDao;
 import br.com.arri.model.*;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,28 +15,23 @@ public class Main {
 
         // Carregar Pessoas físicas e Jurídicas
         BaseDados.fillDataBasePessoaFisica();
-
-        // Cria o carrinho
-        CarrinhoPessoaFisica cpf = new CarrinhoPessoaFisica();
-//        CarrinhoPessoaFisica cpj = new CarrinhoPessoaJuridica();
+        BaseDados.fillDataBasePessoaJuridica();
 
         // Compra para pessoa Física
-
-
-        // Compra para pessoa Jurídica
-
-        cpf.adicionarProduto(ProdutoDao.buscarProdutoById(1));
-        cpf.adicionarProduto(ProdutoDao.buscarProdutoById(1));
-        cpf.listarItensCarrinho();
-        cpf.alterarQuantidade(5, ProdutoDao.buscarProdutoById(1));
-        cpf.listarItensCarrinho();
-        cpf.adicionarProduto(ProdutoDao.buscarProdutoById(2));
-        cpf.alterarQuantidade(3, ProdutoDao.buscarProdutoById(2));
-        cpf.adicionarProduto(ProdutoDao.buscarProdutoById(1));
-        cpf.listarItensCarrinho();
-        cpf.listarItensCarrinho();
+        CarrinhoPessoaFisica cpf = new CarrinhoPessoaFisica();
+        ProdutoDao produtoDao = new ProdutoDao();
+        cpf.adicionarProduto(produtoDao.buscarById(1));
+        cpf.adicionarProduto(produtoDao.buscarById(1));
+        cpf.alterarQuantidade(5, produtoDao.buscarById(1));
+        cpf.adicionarProduto(produtoDao.buscarById(3));
+        cpf.alterarQuantidade(3, produtoDao.buscarById(3));
+        cpf.adicionarProduto(produtoDao.buscarById(2));
         cpf.calcularFrete();
         cpf.calculaTaxa();
+        cpf.listarItensCarrinho();
+
+        // Compra para pessoa Jurídica
+//        CarrinhoPessoaJuridica cpj = new CarrinhoPessoaJuridica();
     }
 
 }

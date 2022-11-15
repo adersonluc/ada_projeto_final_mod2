@@ -2,6 +2,8 @@ package br.com.arri.model;
 
 import br.com.arri.dao.ProdutoDao;
 
+import javax.swing.*;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,26 +58,46 @@ public class CarrinhoPessoaFisica implements Carrinho{
 
     @Override
     public void calcularFrete() {
-        Optional<BigDecimal> valorTotalCarrinho = pedidos.stream()
-                .filter(pedido -> ProdutoDao.buscarProdutoById(pedido.getIdProduto()).getFrete() == true)
+        ProdutoDao produtoDao = new ProdutoDao();
+        BigDecimal valorTotalCarrinho = pedidos.stream()
+                .filter(pedido -> produtoDao.buscarById(pedido.getIdProduto()).getFrete() == true)
                 .map(pedido -> pedido.getPrecoTotal()).collect(Collectors.toList())
-                .stream().reduce((numeroAnterior, numeroAtual) -> numeroAnterior.add(numeroAtual));
-        this.frete = valorTotalCarrinho.get().multiply(new BigDecimal("0.005"));
+                .stream().reduce(new BigDecimal("0.00"), (numeroAnterior, numeroAtual) -> numeroAnterior.add(numeroAtual));
+        this.frete = valorTotalCarrinho.multiply(new BigDecimal("0.005"));
     }
 
     @Override
     public void calculaTaxa() {
+        ProdutoDao produtoDao = new ProdutoDao();
         this.taxas = pedidos.stream()
-                .map(pedido -> ProdutoDao.buscarProdutoById(pedido.getIdProduto()).getCategoria().valorTaxa().multiply(pedido.getPrecoTotal()))
+                .map(pedido -> produtoDao.buscarById(pedido.getIdProduto()).getCategoria().valorTaxa().multiply(pedido.getPrecoTotal()))
                 .collect(Collectors.toList())
                 .stream().reduce(new BigDecimal("0.00"), (valorAnterior, valorAtual) -> valorAnterior.add(valorAtual));
-        System.out.println(this.taxas);
     }
 
     @Override
     public void listarItensCarrinho() {
-        pedidos.stream().forEach(pedido -> System.out.println(pedido));
-        System.out.println();
+        ProdutoDao produtoDao = new ProdutoDao();
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Produtos                       Categoria       Preço Unitário      Quantidade          Preço Total         Taxa do Produto  ");
+        this.pedidos.stream()
+                .forEach(pedido -> {
+                    Produto produtoPedido = produtoDao.buscarById(pedido.getIdProduto());
+                    System.out.printf("%-30s", produtoPedido.getNome());
+                    System.out.printf("%-20s", produtoPedido.getCategoria());
+                    System.out.printf("R$ %-19.2f", produtoPedido.getPrecoUnitario());
+                    System.out.printf("%-14d ", pedido.getQuantidadeProduto());
+                    System.out.printf("R$ %-20.2f", pedido.getPrecoTotal());
+                    System.out.printf("R$ %-20.2f\n", pedido.getPrecoTotal().multiply(produtoPedido.getCategoria().valorTaxa()));
+                });
+        BigDecimal valorTotalCompra = this.pedidos.stream()
+                .map(pedido -> pedido.getPrecoTotal())
+                .reduce(new BigDecimal("0.00"), (valorAnterior, valorAtual) -> valorAnterior.add(valorAtual));
+
+        System.out.printf("\nValor Total do Frete: R$ %.2f\n", this.frete);
+        System.out.printf("\nValor Total das Taxas: R$ %.2f\n", this.taxas);
+        System.out.printf("\nValor Total da Compra: R$ %.2f\n", valorTotalCompra);
+        System.out.printf("\nValor Total da Compra com frete e taxas: R$ %.2f\n", (valorTotalCompra.add(this.frete)).add(this.taxas));
     }
 
 }

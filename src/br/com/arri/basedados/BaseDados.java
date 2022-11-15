@@ -12,7 +12,7 @@ public class BaseDados {
 
     private static Map<Integer, Produto> produtoBaseDeDados = new HashMap<>();
     private static Map<Integer, PessoaFisica> pessoaFisicaBaseDeDados = new HashMap<>();
-    private static Map<Integer, PessoaJuridica> pessoJuridicaBaseDeDados = new HashMap<>();
+    private static Map<Integer, PessoaJuridica> pessoaJuridicaBaseDeDados = new HashMap<>();
 
     public static void fillDataBaseProdutos(){
         produtoBaseDeDados.put(1, new Produto(1, "Playstation 5", "Videogame",
@@ -32,9 +32,11 @@ public class BaseDados {
                 "021653695-30"));
     }
 
-//    public void fillDataBasePessoaJuridica(){
-//
-//    }
+    public static void fillDataBasePessoaJuridica(){
+        pessoaJuridicaBaseDeDados.put(1, new PessoaJuridica(1, "Armárinho Bom Negócio", "armarinhobn@negocio.com", "(61) 98765-9876",
+                new Endereco("Rua Abelha de Mel", "Em frente a praia", 9965, "Itambaiá", "75315-000", "Centopéia",
+                        "ES"), "Armárinho Bom Negócio", "99999999/0001-99"));
+    }
 
     public static Map<Integer, Produto> getProdutos(){
         return produtoBaseDeDados;
@@ -45,6 +47,6 @@ public class BaseDados {
     }
 
     public static Map<Integer, PessoaJuridica> getPessoJuridicaBaseDeDados() {
-        return pessoJuridicaBaseDeDados;
+        return pessoaJuridicaBaseDeDados;
     }
 }
