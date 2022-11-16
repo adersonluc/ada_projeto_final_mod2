@@ -33,8 +33,8 @@ public class BaseDados {
     }
 
     public static void fillDataBasePessoaJuridica(){
-        pessoaJuridicaBaseDeDados.put(1, new PessoaJuridica(1, "Armárinho Bom Negócio", "armarinhobn@negocio.com", "(61) 98765-9876",
-                new Endereco("Rua Abelha de Mel", "Em frente a praia", 9965, "Itambaiá", "75315-000", "Centopéia",
+        pessoaJuridicaBaseDeDados.put(1, new PessoaJuridica(1, "Armárinho Bom Negócio", "armarinhobn@negocio.com", "(83) 98765-9876",
+                new Endereco("Rua Abelha de Mel", "Em frente a praia", 9965, "Itambaiá", "78315-000", "Centopéia",
                         "ES"), "Armárinho Bom Negócio", "99999999/0001-99"));
     }
 
@@ -46,7 +46,7 @@ public class BaseDados {
         return pessoaFisicaBaseDeDados;
     }
 
-    public static Map<Integer, PessoaJuridica> getPessoJuridicaBaseDeDados() {
+    public static Map<Integer, PessoaJuridica> getPessoaJuridicaBaseDeDados() {
         return pessoaJuridicaBaseDeDados;
     }
 }

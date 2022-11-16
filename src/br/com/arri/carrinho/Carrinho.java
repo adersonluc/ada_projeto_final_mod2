@@ -1,4 +1,6 @@
-package br.com.arri.model;
+package br.com.arri.carrinho;
+
+import br.com.arri.model.Produto;
 
 public interface Carrinho {
 
